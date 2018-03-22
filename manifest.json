@@ -10,19 +10,14 @@
     "128": "icons/icon128.png"
   },
   "default_locale": "en",
-  "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'",
   "page_action": {
     "default_icon": "icons/icon19.png",
     "default_title": "page action demo"
   },
   "content_scripts": [
     {
-      "matches": [
-        "https://app.asana.com/*"
-      ],
-      "js": [
-        "src/inject/inject.js"
-      ]
+      "matches": ["https://app.asana.com/*"],
+      "js": ["src/inject/inject.js"]
     }
   ]
 }
