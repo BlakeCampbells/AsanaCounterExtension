@@ -2,9 +2,10 @@ chrome.extension.sendMessage({}, function(response) {
   var readyStateCheckInterval = setInterval(function() {
     if (document.readyState === "complete") {
       clearInterval(readyStateCheckInterval);
-      // ----------------------------------------------------------
-      // This part of the script triggers when page is done loading
+        // ----------------------------------------------------------
+        // This part of the script triggers when page is done loading
       shiftEventListener();
+      checkIfKanBanBoard();
     }
   }, 10);
 });
@@ -18,7 +19,7 @@ function shiftEventListener () {
 }
 
 function calculateTotal () {
-  // console.count("Running Asana Counter");
+  var regex = /\[([0-9]+)\]/;
   var elements = document.querySelectorAll(".ItemRow--highlighted, .ItemRow--focused");
   // Grab highlighted and focused tasks, we don't need to add it length is 1
   if (elements.length > 1) {
@@ -26,7 +27,6 @@ function calculateTotal () {
     // See if we've already written the total result before looping
     for (var j = 0; j < selectedTask.length; j++) {
       var elementsSelected = 0;
-      var regex = /\[([0-9]+)\]/;
       var selected = selectedTask[j];
       var matches = selected.innerHTML.match(regex);
 
@@ -44,5 +44,31 @@ function calculateTotal () {
         selected.innerHTML = selected.innerHTML + " [" + elementsSelected.toString() + "] ";
       }
     }
+  }
+}
+
+function checkIfKanBanBoard() {
+  var kanbanCheck = document.getElementsByClassName('Board');
+  console.log('Is Kanban Board', kanbanCheck.length);
+  if (kanbanCheck.length >= 1) {
+    addColumnTotals()
+  }
+}
+
+function addColumnTotals() {
+  var regex = /\[([0-9]+)\]/;
+  var boardColumns = document.getElementsByClassName('BoardColumn');
+  for (var i = 0; i < boardColumns.length; i++) {
+    var columnTitle = boardColumns[i].getElementsByClassName('BoardColumnHeaderTitle');
+    var columnPointTotal = 0;
+    // TODO Count Points in card before spitting out the total
+    var columnCardTitles = boardColumns[i].getElementsByClassName('BoardCardWithCustomProperties-name');
+    for(var j = 0; j < columnCardTitles.length; j++) {
+      var matches = columnCardTitles[j].innerHTML.match(regex);
+      if (null != matches) {
+        columnPointTotal = Number(columnPointTotal) + Number(matches[1]);
+      }
+    }
+    columnTitle[0].innerHTML = columnTitle[0].innerHTML + ' [' + columnPointTotal.toString() + ']';
   }
 }
