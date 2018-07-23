@@ -6,6 +6,13 @@ chrome.extension.sendMessage({}, function(response) {
         // This part of the script triggers when page is done loading
       shiftEventListener();
       checkIfKanBanBoard();
+      var currentUrl = window.location.href
+      setInterval(function(){
+        if(currentUrl != window.location.href){
+          currentUrl = window.location.href;
+          checkIfKanBanBoard();
+        }
+      }, 9000)
     }
   }, 10);
 });
@@ -60,15 +67,18 @@ function addColumnTotals() {
   var boardColumns = document.getElementsByClassName('BoardColumn');
   for (var i = 0; i < boardColumns.length; i++) {
     var columnTitle = boardColumns[i].getElementsByClassName('BoardColumnHeaderTitle');
-    var columnPointTotal = 0;
-    // TODO Count Points in card before spitting out the total
-    var columnCardTitles = boardColumns[i].getElementsByClassName('BoardCardWithCustomProperties-name');
-    for(var j = 0; j < columnCardTitles.length; j++) {
-      var matches = columnCardTitles[j].innerHTML.match(regex);
-      if (null != matches) {
-        columnPointTotal = Number(columnPointTotal) + Number(matches[1]);
+    if(columnTitle[0].innerHTML.includes('[')){}
+    else{
+      var columnPointTotal = 0;
+      // TODO Count Points in card before spitting out the total
+      var columnCardTitles = boardColumns[i].getElementsByClassName('BoardCardWithCustomProperties-name');
+      for(var j = 0; j < columnCardTitles.length; j++) {
+        var matches = columnCardTitles[j].innerHTML.match(regex);
+        if (null != matches) {
+          columnPointTotal = Number(columnPointTotal) + Number(matches[1]);
+        }
       }
+      columnTitle[0].innerHTML = columnTitle[0].innerHTML + ' [' + columnPointTotal.toString() + ']';
     }
-    columnTitle[0].innerHTML = columnTitle[0].innerHTML + ' [' + columnPointTotal.toString() + ']';
   }
 }
