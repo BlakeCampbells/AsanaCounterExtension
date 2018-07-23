@@ -1,9 +1,9 @@
 {
   "name": "Asana Point Counter",
-  "version": "0.0.3",
-  "manifest_version": 3,
+  "version": "1.1.0",
+  "manifest_version": 2,
   "short_name": "Asana Point Counter made by BenefitMany",
-  "description": "Asana Point counter is a replacement for the deprecated experiment Asana used to support. Created with extensionizr",
+  "description": "Asana Point counter is a replacement for the deprecated experiment brackets counting in Asana.",
   "homepage_url": "https://benefitmany.com",
   "icons": {
     "16": "icons/icon16.png",
