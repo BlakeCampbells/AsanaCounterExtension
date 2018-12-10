@@ -66,7 +66,7 @@ function checkIfKanBanBoard() {
 
 function addColumnTotals() {
   var regex = /\[([0-9]+)\]/;
-  var boardColumns = document.getElementsByClassName('BoardColumn');
+  var boardColumns = document.getElementsByClassName('BoardColumnWrapper');
   for (var i = 0; i < boardColumns.length; i++) {
     var columnTitle = boardColumns[i].getElementsByClassName('BoardColumnHeaderTitle');
     if(columnTitle[0].innerHTML.includes('[')) {
