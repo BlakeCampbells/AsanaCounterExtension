@@ -75,6 +75,9 @@ function addColumnTotals() {
     var columnPointTotal = 0;
     // TODO Count Points in card before spitting out the total
     var columnCardTitles = boardColumns[i].getElementsByClassName('BoardCardWithCustomProperties-name');
+    if(columnCardTitles.length == 0) {
+      columnCardTitles = boardColumns[i].getElementsByClassName('BoardCardWithCustomProperties-nameShowBoardImprovements');
+    }
     for(var j = 0; j < columnCardTitles.length; j++) {
       var matches = columnCardTitles[j].innerHTML.match(regex);
       if (null != matches) {
