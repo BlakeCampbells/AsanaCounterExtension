@@ -18,10 +18,16 @@ chrome.extension.sendMessage({}, function(response) {
 });
 
 function shiftEventListener () {
+  // TODO Add mutations to have less event listeners depending on board vs table view
   window.addEventListener("click", function(e) {
     if (e.shiftKey) {
       chrome.extension.sendMessage({ type: 'table' }, function(response) { calculateTotal(); });
-    };
+    }
+  }, false);
+  window.addEventListener("keyup", function (e){
+    if(e.ctrlKey || e.metaKey || e.keyCode == 91){
+      chrome.extension.sendMessage({ type: 'table' }, function(response) { calculateTotal(); });
+    }
   }, false);
   document.addEventListener("drop", function(event) {
     event.preventDefault();
@@ -30,7 +36,7 @@ function shiftEventListener () {
 }
 
 function calculateTotal () {
-  var regex = /\[([0-9]+)\]/;
+  var regex = /\[([0-9]+(\.[0-9][0-9]?)?)\]/;
   var elements = document.querySelectorAll(".ItemRow--highlighted, .ItemRow--focused");
   if (elements.length > 1) {
     var selectedTask = document.getElementsByClassName("MultiTaskTitleRow-titleText");
@@ -50,7 +56,7 @@ function calculateTotal () {
             }
           }
         }
-        selected.innerHTML = selected.innerHTML + " [" + elementsSelected.toString() + "] ";
+        selected.innerHTML = selected.innerHTML + " [" + elementsSelected.toFixed(2).replace(/\.00$/, '').toString() + "] ";
       }
     }
   }
@@ -65,7 +71,7 @@ function checkIfKanBanBoard() {
 
 
 function addColumnTotals() {
-  var regex = /\[([0-9]+)\]/;
+  var regex = /\[([0-9]+(\.[0-9][0-9]?)?)\]/;
   var boardColumns = document.getElementsByClassName('BoardColumn');
   for (var i = 0; i < boardColumns.length; i++) {
     var columnTitle = boardColumns[i].getElementsByClassName('BoardColumnHeaderTitle');
