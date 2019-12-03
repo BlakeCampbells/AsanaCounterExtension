@@ -80,9 +80,9 @@ function addColumnTotals() {
     }
     var columnPointTotal = 0;
     // TODO Count Points in card before spitting out the total
-    var columnCardTitles = boardColumns[i].getElementsByClassName('BoardCardWithCustomProperties-name');
+    var columnCardTitles = boardColumns[i].getElementsByClassName('BoardColumnWithSortableTasks-sortableItemWrapper');
     if(columnCardTitles.length == 0) {
-      columnCardTitles = boardColumns[i].getElementsByClassName('BoardCardWithCustomProperties-nameShowBoardImprovements');
+      columnCardTitles = boardColumns[i].getElementsByClassName('BoardCardWithCustomProperties-nameShowBoardImprovements, BoardCard-name');
     }
     for(var j = 0; j < columnCardTitles.length; j++) {
       var matches = columnCardTitles[j].innerHTML.match(regex);
