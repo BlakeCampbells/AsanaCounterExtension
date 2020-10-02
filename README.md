@@ -1,11 +1,16 @@
-## Description
+## Asana Point Counter
+---
 
 ### - Who this project is for?
 - This extension is dedicated to counting the points in brackets on boards in Asana
 - Useful for following scrum for developers and teams to estimate work
 
 ### - Why do they use it?
-- Easily glance at points in a sprint
+- Easily glance at points in a sprint, best used for storyboards.
+
+### - How to ZIP it?
+From the parent directory just run. Then upload it to the Chrome Webstore.
+`./asana-chrome-counter.zip ./asana-chrome-counter -x \*.git\* \*.DS_Store\*`
 
 ---
 
@@ -26,7 +31,8 @@ Almost all the logic for this extension is in /src/inject/inject.js
 ---
 
 ## Formatting Guidelines
-- The goal of this project is to be short and concise. The size goal of this extension to stay under 10kbs.
+  - The goal of this project is to be short and concise.
+  - The size goal of this extension to stay under 10kbs.
 
 ## Todo
  - Make the project easier to trace through.
@@ -38,6 +44,6 @@ Almost all the logic for this extension is in /src/inject/inject.js
   - Yes, probably if it's within reason and within the scope of this project.
 
 - What's the difference between this and other extensions that do the same thing?
-  - Size is under 8kb and very general purpose.
+  - Size is under 8kb and very general purpose, no bells and whistles you don't need.
   - Constant updates, if this breaks on boards it's usually fixed within 48 hours.
   - Under 100 lines of code and updates based off ticket movement.
